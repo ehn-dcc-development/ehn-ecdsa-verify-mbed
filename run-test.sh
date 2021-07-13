@@ -35,7 +35,7 @@ Y=`dd if=xy.raw count=32 bs=1 skip=32 | xxd -p -c 128`
 
 # Sign the text HelloWorld and output result as Base64
 #
-SIG=`echo -n HelloWorld | openssl dgst -sign dsc.key | base64`
+SIG=`printf HelloWorld | openssl dgst -sign dsc.key | base64`
 
 # compile
 gcc -Wall -o mbed-ecdsa-verify mbed-ecdsa-verify.c  -I/opt/local/include -L/opt/local/lib -lmbedcrypto 
