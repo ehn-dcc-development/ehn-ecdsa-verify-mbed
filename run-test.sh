@@ -42,3 +42,5 @@ gcc -Wall -o mbed-ecdsa-verify mbed-ecdsa-verify.c  -I/opt/local/include -L/opt/
 
 # Run de test
 ./mbed-ecdsa-verify $X $Y $SIG HelloWorld
+
+echo Ok
