@@ -44,7 +44,6 @@ int main( int argc, char *argv[] )
     unsigned char hash[32];
     EXITONERR(mbedtls_sha256_ret( message, message_len, hash, 0 ));
 
-    EXITONERR(mbedtls_ecp_group_load( &ctx_verify.grp, MBEDTLS_ECP_DP_SECP256R1));
 
     // load the public key
     ///
@@ -55,9 +54,11 @@ int main( int argc, char *argv[] )
 
     /*
      * Verify signature
+     *
+     * Note that  prime256v1 is also known as MBEDTLS_ECP_DP_SECP256R1, See appendix
+     * A of https://tools.ietf.org/search/rfc4492.
      */
-    printf( "Verifying signature (%zu, %zu)...",sig_len, sizeof(hash));
-    fflush( stdout );
+    EXITONERR(mbedtls_ecp_group_load( &ctx_verify.grp, MBEDTLS_ECP_DP_SECP256R1));
 
     EXITONERR(mbedtls_ecdsa_read_signature( &ctx_verify, hash, sizeof( hash ), sig, sig_len));
     printf("signature ok\n" );
